@@ -5,7 +5,7 @@ const db = require('./../config/db');
  * @returns la lista de todos los usuarios
  */
 exports.obtenerUsuarios = async ()=>{
-    const [rows, fields] = await db.execute('SELECT * FROM usuarios');
+    const [rows, fields] = await db.execute('SELECT id, username, email, rol FROM usuarios');
     console.log(rows);
     return rows;
 };
@@ -19,3 +19,8 @@ exports.getUserById = async(id)=>{
     console.log(rows)
     return rows;
 }
+
+exports.addUSer = async(user)=>{
+    const [rows, fields] = await db.execute('INSERT INTO usuarios (username, password, email, rol) values ?', [user])
+    return rows;
+}   

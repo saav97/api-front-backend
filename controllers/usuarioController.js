@@ -7,6 +7,7 @@ exports.getUsuarios = async (req, res)=>{
     try {
         //obtenemos los datos desde el modelo
         const usuarios = await usuarioModel.obtenerUsuarios();
+
         //si todo va bien respondemos con los usuarios, del lado del cliente
         //lo obtenemos con json
         //status 200 que todo fue ok
@@ -60,4 +61,32 @@ exports.getUserById = async(req, res)=>{
             message: 'Hubo un error al obtener los datos'
         })
     }
+}
+
+
+exports.addUSer = async (req, res)=>{
+    const user = req.body;
+
+    try {
+        const user = await usuarioModel.addUSer(user);
+
+        if(user.length<1){
+            res.status(407).json({
+                success:false,
+                msg:'No se logro insertar el usuario en la base de datos'
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            msg:'Usuario agregad con exito!'
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            message: 'Hubo un error al obtener los datos'
+        })
+    }
+
 }
