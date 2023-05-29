@@ -64,11 +64,13 @@ exports.getUserById = async(req, res)=>{
 }
 
 
-exports.addUSer = async (req, res)=>{
-    const user = req.body;
+exports.addUser = async (req, res)=>{
+    const userData = req.body;
+    console.log(userData);
 
     try {
-        const user = await usuarioModel.addUSer(user);
+        const user = await usuarioModel.addUSer(userData);
+        console.log(user);
 
         if(user.length<1){
             res.status(407).json({
@@ -85,8 +87,48 @@ exports.addUSer = async (req, res)=>{
     } catch (error) {
         res.status(500).json({
             success:false,
-            message: 'Hubo un error al obtener los datos'
+            message: 'Hubo un error al obtener los datos',
+            error:error
         })
     }
+
+}
+
+
+exports.updateUser = async (req, res) =>{
+    const userData = req.body
+    const id = req.params.id
+
+    const user = {
+        id,
+        ...userData
+    }
+
+    console.log(user);
+    
+    try {
+        const listaActualizada = await usuarioModel.updateUser(user);
+    
+        if(listaActualizada<1){
+            res.status(404).json({
+                success:false,
+                msg:'Datos no actualizados!'
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            msg:"Datos actualizados",
+            listaActualizada
+        })
+
+    } catch (error) {   
+        res.status(500).json({
+            success:false,
+            message: 'Hubo un error al obtener los datos',
+            error:error
+        })
+    }
+
 
 }

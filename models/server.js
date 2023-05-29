@@ -8,8 +8,8 @@ const router = require('./../routes/usuarioRoute')
 class Server {
     constructor(){
         this.app = express();
-        this.routes();
         this.middlewares();
+        this.routes();
     }
 
     routes(){
