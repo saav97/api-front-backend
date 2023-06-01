@@ -66,10 +66,10 @@ exports.getUserById = async(req, res)=>{
 
 exports.addUser = async (req, res)=>{
     const userData = req.body;
-    console.log(userData);
+    console.log("Antes de insertar"+userData);
 
     try {
-        const user = await usuarioModel.addUSer(userData);
+        const user = await usuarioModel.addUser(userData);
         console.log(user);
 
         if(user.length<1){

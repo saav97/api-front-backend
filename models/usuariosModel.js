@@ -20,9 +20,9 @@ exports.getUserById = async(id)=>{
     return rows;
 }
 
-exports.addUSer = async(user)=>{
-    console.log(user);
-    const [rows, fields] = await db.execute('INSERT INTO usuarios (username, password, email, rol) values (?,?,?,?)', [user.username, user.password, user.email, user.rol])
+exports.addUser = async(user)=>{
+
+    const [rows, fields] = await db.execute('INSERT INTO usuarios (username, email, password) values (?,?,?)', [user.username, user.email, user.password])
     console.log(rows);
     return rows;
 } 
